@@ -1,0 +1,82 @@
+{
+   "version":1,
+   "formatters":{
+      "default":{
+         "format":"%(asctime)s %(levelname)s %(filename)s %(lineno)s %(message)s",
+         "datefmt":"%Y-%m-%d %H:%M:%S",
+         "class":"logging.Formatter"
+      },
+      "fileFormatter":{
+         "format":"%(asctime)s %(levelname)s %(module)s - %(funcName)s: %(message)s",
+         "datefmt":"%Y-%m-%d %H:%M:%S",
+         "class":"logging.Formatter"
+      },
+      "consoleFormatter":{
+         "format":"%(asctime)s %(levelname)s %(module)s - %(funcName)s: %(message)s",
+         "datefmt":"%Y-%m-%d %H:%M:%S",
+         "class":"logging.Formatter"
+      }
+   },
+   "handlers":{
+      "consoleHandler":{
+         "class":"logging.StreamHandler",
+         "level":"DEBUG",
+         "formatter":"consoleFormatter"
+      },
+      "fileHandler":{
+         "class":"logging.FileHandler",
+         "level":"DEBUG",
+         "filename":"$PATH/debug.log",
+         "formatter":"fileFormatter"
+      },
+      "timedrotatingfileHandler":{
+         "class":"logging.handlers.TimedRotatingFileHandler",
+         "level":"INFO",
+         "formatter":"fileFormatter",
+         "filename":"$PATH/info.log",
+         "backupCount":5,
+         "interval":1,
+         "when":"M",
+         "encoding":"utf8"
+      },
+      "timedrotatingfileHandler2":{
+         "class":"logging.handlers.TimedRotatingFileHandler",
+         "level":"DEBUG",
+         "formatter":"fileFormatter",
+         "filename":"$PATH/global.log",
+         "backupCount":5,
+         "interval":1,
+         "when":"M",
+         "encoding":"utf8"
+      }
+   },
+   "loggers":{
+      "":{
+         "handlers":["timedrotatingfileHandler2"],
+         "level":"DEBUG",
+         "propagate":false
+      },
+      "mqtt":{
+         "handlers":["consoleHandler","fileHandler"],
+         "level":"DEBUG",
+         "propagate":false
+      },
+      "mqtt_msg":{
+         "handlers":["timedrotatingfileHandler"],
+         "level":"INFO",
+         "propagate":false
+      },
+      "bacnet":{
+         "handlers":["consoleHandler","fileHandler"],
+         "level":"INFO",
+         "propagate":false
+      },
+      "bacnet_msg":{
+         "handlers":["timedrotatingfileHandler"],
+         "level":"INFO",
+         "propagate":false
+      }
+       
+   },
+   "disable_existing_loggers":false
+}
